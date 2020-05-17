@@ -8,5 +8,5 @@ var (
 
 func init() {
 	NoopLogger = log.NewLog(log.WithColors(true), log.WithFilePath(true), log.WithLevel("INFO")).
-		Log(log.Prefixed("[saban]"))
+		Log(log.Prefixed("saban"))
 }

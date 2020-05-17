@@ -9,6 +9,16 @@ import (
 	"strings"
 )
 
+type headerType string
+
+const (
+	HeaderTypeTransaction headerType = "Trans"
+)
+
+func (h headerType) String() string {
+	return string(h)
+}
+
 type marshaller struct {
 	config *MarshallerConfig
 	output string
@@ -17,15 +27,22 @@ type marshaller struct {
 type MarshallerConfig struct {
 	Envelope configEnvelope
 	Header   configHeader
+	Body     configBody
 	Log      log.Logger
 }
 
+type configBody struct {
+	NameSpace string `validate:"url,required"`
+}
+
 type configEnvelope struct {
-	EncodingStyle string `validate:"url"`
+	EncodingStyle string `validate:"url,required"`
 }
 
 type configHeader struct {
 	MustUnderstand bool
+	Type           headerType
+	NameSpace      string `validate:"url,required"`
 	Actor          string `validate:"url,omitempty"`
 }
 
@@ -36,6 +53,7 @@ func (m marshaller) validate() {
 		cf.Envelope.EncodingStyle = defaultEncodingStyle
 		cf.Header.Actor = ""
 		cf.Header.MustUnderstand = false
+		cf.Header.Type = HeaderTypeTransaction
 		cf.Log = logger.NoopLogger
 		m.config = &cf
 	}
@@ -71,7 +89,7 @@ func (m marshaller) Marshal(in interface{}) (out []byte, err error) {
 	}()
 
 	m.parse(in, true)
-	body := fmt.Sprintf("<soap:Body>%v</soap:Body>", m.output)
+	body := fmt.Sprintf(`<soap:Body xmlns:m="%v">%v</soap:Body>`, m.config.Body.NameSpace, m.output)
 
 	header := header{}
 	if m.config.Header.MustUnderstand {
@@ -80,6 +98,8 @@ func (m marshaller) Marshal(in interface{}) (out []byte, err error) {
 		header.MustUnderstand = 0
 	}
 	header.Actor = m.config.Header.Actor
+	header.NameSpace = m.config.Header.NameSpace
+	header.Type = m.config.Header.Type.String()
 
 	h, err := header.getContent()
 	if err != nil {

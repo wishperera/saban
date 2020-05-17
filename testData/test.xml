@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<soap:Envelope
+        xmlns:soap="http://www.w3.org/2003/05/soap-envelope/"
+        soap:encodingStyle="http://www.w3.org/2003/05/soap-encoding">
+    <soap:Header>
+        <m:Trans xmlns:m="https://www.w3schools.com/transaction/"
+                 soap:mustUnderstand="1"
+                 soap:actor="https://www.w3schools.com/code/">234
+        </m:Trans>
+    </soap:Header>
+    <soap:Body xmlns:m="http://www.example.org/stock">
+        <m:one>1000</m:one><m:two>sdsdsada</m:two><m:FieldThree><m:threeSubOne>100</m:threeSubOne></m:FieldThree><m:four>abcd</m:four><m:five>[1,2,3,4]</m:five>
+    </soap:Body>
+</soap:Envelope>

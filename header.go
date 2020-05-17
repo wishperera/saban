@@ -23,6 +23,8 @@ func init() {
 type header struct {
 	MustUnderstand int
 	Actor          string
+	NameSpace      string
+	Type           string
 }
 
 func (h header) getContent() (out string, err error) {
