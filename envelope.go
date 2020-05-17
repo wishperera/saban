@@ -22,13 +22,9 @@ func init() {
 }
 
 type envelope struct {
-	EncodingStyle string `validate:"url"`
+	EncodingStyle string
 	Header        string
 	Body          string
-}
-
-func (e envelope) validate() error {
-	return validator.Struct(e)
 }
 
 func (e envelope) getContent() (out string, err error) {

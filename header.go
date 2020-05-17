@@ -22,11 +22,7 @@ func init() {
 
 type header struct {
 	MustUnderstand int
-	Actor          string `validate:"actor"`
-}
-
-func (h header) validate() error {
-	return validator.Struct(h)
+	Actor          string
 }
 
 func (h header) getContent() (out string, err error) {

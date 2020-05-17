@@ -21,12 +21,12 @@ type MarshallerConfig struct {
 }
 
 type configEnvelope struct {
-	EncodingStyle string
+	EncodingStyle string `validate:"url"`
 }
 
 type configHeader struct {
 	MustUnderstand bool
-	Actor          string
+	Actor          string `validate:"url,omitempty"`
 }
 
 // override empty configurations with defaults
@@ -45,6 +45,11 @@ func (m marshaller) validate() {
 	if m.config.Log == nil {
 		m.config.Log = logger.NoopLogger
 	}
+
+	if err := validator.Struct(m.config); err != nil {
+		m.config.Log.Fatal("error validating config", err)
+	}
+
 }
 
 func NewEncoder(config MarshallerConfig) *marshaller {
@@ -115,7 +120,7 @@ func (m *marshaller) parse(in interface{}, base bool) {
 
 			var n string
 			f := t.Field(iter)
-			tag, ok := f.Tag.Lookup("fuck")
+			tag, ok := f.Tag.Lookup("saban")
 			if !ok {
 				n = f.Name
 			} else {
