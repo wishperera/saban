@@ -1,0 +1,6 @@
+<soap:Header>
+	<m:Trans xmlns:m="https://www.w3schools.com/transaction/"
+	soap:mustUnderstand="{{.MustUnderstand}}"
+	soap:actor="{{.Actor}}">234
+	</m:Trans>
+</soap:Header>
