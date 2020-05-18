@@ -77,7 +77,7 @@ func NewEncoder(config MarshallerConfig) *marshaller {
 	return m
 }
 
-func (m marshaller) Marshal(in interface{}) (out []byte, err error) {
+func (m marshaller) Encode(in interface{}) (out []byte, err error) {
 
 	defer func() {
 		if err != nil {
