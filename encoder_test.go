@@ -33,7 +33,7 @@ func TestEncoder(t *testing.T) {
 	}
 
 	enc := NewEncoder(conf)
-	out, err := enc.Marshal(object)
+	out, err := enc.Encode(object)
 	if err != nil {
 		t.Error(err)
 		t.Fail()
