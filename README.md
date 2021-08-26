@@ -1,7 +1,7 @@
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=wishperera_saban&metric=alert_status)](https://sonarcloud.io/dashboard?id=wishperera_saban)
 # saban
 #### Golang soap encoder
 ![include](./doc/img/soap.png)
-[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/dashboard?id=wishperera_saban)
 Saban is a naive soap encoder using golang. Saban supports nested fields like structs,pointers,slices etc.
 
 ##### Define Payload
